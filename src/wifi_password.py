@@ -6,7 +6,7 @@ def get_wifi_passwords():
     command_output = subprocess.check_output(['netsh', 'wlan', 'show', 'profiles']).decode('utf-8', errors="backslashreplace")
     
     # Extract profile names using regex
-    profile_names = re.findall(r"utente\s*:\s*(.*)\r", command_output)
+    profile_names = re.findall(r"(?:Tutti i profili utente|All User Profile)\s*:\s*(.*)\r", command_output)
     
     wifi_list = []
     
@@ -17,7 +17,7 @@ def get_wifi_passwords():
             profile_info = subprocess.check_output(['netsh', 'wlan', 'show', 'profile', name, 'key=clear']).decode('utf-8', errors="backslashreplace")
             
             # Extract password (Key Content)
-            password = re.search(r"Contenuto chiave\s*:\s*(.*)\r", profile_info)
+            password = re.search(r"(?:Contenuto chiave|Key Content)\s*:\s*(.*)\r", profile_info)
             
             wifi_profile["ssid"] = name
             if password is None:
