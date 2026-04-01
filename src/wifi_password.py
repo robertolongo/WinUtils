@@ -29,8 +29,13 @@ def get_wifi_passwords():
             
     return wifi_list
 
-# Execute and print results
-for wifi in get_wifi_passwords():
-    print(f"SSID: {wifi['ssid']}, Password: {wifi['password']}")
+if __name__ == "__main__":
+    print("Getting wifi passwords registered on the system...")
 
-input("Press Enter to exit...")
+    print("-" * 40)
+    # Execute and print results
+    for wifi in get_wifi_passwords():
+        print(f"SSID: {wifi['ssid']}, Password: {wifi['password']}")
+
+    print("-" * 40)
+    input("Press Enter to exit...")
